@@ -71,7 +71,9 @@ MESSAGE_TAGS = {
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -90,7 +92,9 @@ WSGI_APPLICATION = 'vivahomeleads.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+DATABASE_URL = 'postgresql:///postgresql'
+
+DATABASES = {'default': dj_database_url.config(default=DATABASE_URL)}
 """
 DATABASES = {
     'default': {

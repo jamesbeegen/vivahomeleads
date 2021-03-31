@@ -1,4 +1,4 @@
-"""vivahomeleads URL Configuration
+"""vivahomeloans URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -14,8 +14,40 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.conf.urls import url
+from django.contrib.auth import views as auth_views
+
+from leads import views
+from accounts import views as accounts_views
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    url(r'^admin/', admin.site.urls),
+    path("", auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    url(r'^reset/$',
+        auth_views.PasswordResetView.as_view(
+            template_name='password_reset.html',
+            email_template_name='password_reset_email.html',
+            subject_template_name='password_reset_subject.txt'
+        ),
+        name='password_reset'),
+    url(r'^reset/done/$',
+        auth_views.PasswordResetDoneView.as_view(template_name='password_reset_done.html'),
+        name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    url(r'^reset/complete/$',
+        auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'),
+        name='password_reset_complete'),
+    url(r'^signup/$', accounts_views.signup, name='signup'),
+    url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
+    url(r'^profile/$', views.update_profile, name='update_profile'),
+    url(r'^password/$', views.change_password, name = 'change_password'),
+    url(r'^leads/$', views.leads, name='leads'),
+    url(r'^leads/log/(?P<pk>\d+)/$', views.logs, name='logs'),
+    url(r'^leads/edit/(?P<pk>\d+)/$', views.edit, name='edit'),
+    url(r'leads/delete/(?P<pk>\d+)/$', views.delete_lead, name='delete_lead'),
+    url(r'^leads/add/$', views.add_lead, name='add_lead'),
+    url(r'^leads/qualtable/(?P<pk>\d+)/$', views.qual_table, name='qual_table')
 ]
+
