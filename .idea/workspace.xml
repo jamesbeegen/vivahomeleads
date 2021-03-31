@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9ca81de5-587a-486f-9a59-634e8ad158a6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/staticfiles/text.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/vivahomeleads/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/vivahomeleads/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
