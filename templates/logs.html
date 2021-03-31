@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'leads' %}">Leads</a></li>
+  <li class="breadcrumb-item active">{{ lead.first_name }} {{ lead.last_name }}</li>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    <label for="id_log">Log: {{ lead.first_name }} {{ lead.last_name }}</label>
+    <div class="form-group">
+      <textarea class="form-control" id="id_log" rows="20" name="log">{{ lead.log }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-success btn-block">Save</button>
+    <a class = 'btn btn-danger btn-block' href = "{% url 'leads' %}">Go Back</a>
+  </form>
+{% endblock %}

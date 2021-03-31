@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+  <a href="{% url 'add_lead' %}"><button class="btn btn-success mb-4">Add New Lead</button></a>
+  
+  <table id="leads" class="table table-hover">
+    <thead>
+      <tr>
+        
+        <th></th>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Credit</th>
+        <th>Date Added</th>
+        <th>Last Contacted</th>
+        <th>Method</th>
+        
+        
+
+      </tr>
+    </thead>
+    <tbody>
+      {% for lead in leads %}
+      {% if lead.days_since_contact > 7 %}
+        <tr class="table-danger">
+      {% else %}
+        <tr>
+      {% endif %}    
+          <td> <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Actions
+          <span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <li><a class = "btn btn-block btn-info mb-2"href="{% url 'edit' lead.pk %}">&nbsp&nbsp&nbsp&nbspEdit&nbsp&nbsp&nbsp&nbsp</a></li>
+            <li><a class = "btn btn-block btn-success mb-2" href="{% url 'logs' lead.pk %}">View Log</a></li>
+            <li><a class = "btn btn-block btn-warning mb-2" href="{% url 'qual_table' lead.pk %}">View Calculator</a></li>
+            <li><a class="btn btn-block btn-danger" href="{% url 'delete_lead' lead.pk %}">Delete</a></li>
+          </ul>
+          </div> 
+          <td class="align-middle">{{ lead.last_name }}, {{ lead.first_name }}</td>
+          <td>{{ lead.phone }}</td>
+          <td>{{ lead.email }}</td>
+          <td>{{ lead.credit }}</td>
+          <td>{{ lead.date_created }}
+          <td>{{ lead.last_contacted }}</td>
+          <td>{{ lead.last_contact_method }}</td>
+
+          
+
+        </tr>
+    
+      {% endfor %}
+    </tbody>
+  </table>
+</td>
+
+ 
+
+{% endblock %}
+{% block js %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/cr-1.5.3/date-1.0.2/r-2.2.7/sb-1.0.1/sp-1.2.2/sl-1.3.2/datatables.min.css"/>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/cr-1.5.3/date-1.0.2/r-2.2.7/sb-1.0.1/sp-1.2.2/sl-1.3.2/datatables.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#leads').DataTable( {
+        "paging":   false
+    } );
+} );
+</script>
+{% endblock %}
+
+

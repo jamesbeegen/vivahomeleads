@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+          <li class="breadcrumb-item"><a href="{% url 'leads' %}">Leads</a></li>
+          <li class="breadcrumb-item active">Edit</li>
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h3 class="card-title text-center mb-3">Edit Lead</h3>
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10 col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <form method="post" novalidate>
+              {% csrf_token %}
+              {% include 'includes/form.html' %}
+              <button type="submit" class="btn btn-success btn-block mb-4">Save</button>
+            </form>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
