@@ -48,3 +48,20 @@ class QualTable(models.Model):
 def create_qual_table(sender, instance, created, **kwargs):
     if created:
         QualTable.objects.create(lead_id=instance)
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=1)
+    phone = models.CharField(max_length=10, blank=False, null=False)
+
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+        instance.groups.add(Group.objects.get(name='Loan Officers'))
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
