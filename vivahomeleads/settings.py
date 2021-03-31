@@ -16,6 +16,7 @@ from django.contrib.messages import constants as messages
 import dj_database_url
 import django_heroku
 
+django_heroku.settings(locals())
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -145,4 +146,3 @@ STATICFILES_DIRS = [
 LOGOUT_REDIRECT_URL = 'login'
 LOGIN_REDIRECT_URL = 'leads'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-django_heroku.settings(locals())
