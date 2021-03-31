@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block breadcrumb %}
+	<li class="breadcrumb-item"><a href="{% url 'leads' %}">Leads</a></li>
+    <li class="breadcrumb-item active">{{ user.get_full_name }}</li>
+{% endblock %}
+
+{% block content %}
+<h3 class="card-title text-center">Update Profile</h3>
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10 col-sm-12">
+      <div class="card">
+        <div class="card-body">
+            
+          <form method="post">
+            {% csrf_token %}
+            
+            
+
+			{% for field in user_form %}
+  			<div class="form-group">
+    		{{ field.label_tag }}
+
+   			 {% if form.is_bound %}
+      {% if field.errors %}
+        {% render_field field class="form-control is-invalid" %}
+        {% for error in field.errors %}
+          <div class="invalid-feedback">
+            {{ error }}
+          </div>
+        {% endfor %}
+      {% else %}
+        {% render_field field class="form-control is-valid" %}
+      {% endif %}
+    {% else %}
+      {% render_field field class="form-control" %}
+    {% endif %}
+
+    {% if field.help_text %}
+      <small class="form-text text-muted">
+        {{ field.help_text }}
+      </small>
+    {% endif %}
+  </div>
+{% endfor %}
+
+
+{% for field in profile_form %}
+  <div class="form-group">
+    {{ field.label_tag }}
+
+    {% if form.is_bound %}
+      {% if field.errors %}
+        {% render_field field class="form-control is-invalid" %}
+        {% for error in field.errors %}
+          <div class="invalid-feedback">
+            {{ error }}
+          </div>
+        {% endfor %}
+      {% else %}
+        {% render_field field class="form-control is-valid" %}
+      {% endif %}
+    {% else %}
+      {% render_field field class="form-control" %}
+    {% endif %}
+
+    {% if field.help_text %}
+      <small class="form-text text-muted">
+        {{ field.help_text }}
+      </small>
+    {% endif %}
+  </div>
+{% endfor %}
+			
+ 			<button class = "btn btn-success btn-block" type="submit">Save changes</button>
+      <a class = 'btn btn-danger btn-block' href = "{% url 'leads' %}">Go Back</a>
+      <a href="{% url 'change_password' %}"></a>
+          </form>
+        </div>
+          
+      </div>
+    </div>
+  </div>
+{% endblock %}

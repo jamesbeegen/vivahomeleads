@@ -1,0 +1,18 @@
+#viva-nav{
+	background-color: #650356 !important;
+	color: #FFFFFF !important;
+	opacity: 0.9;
+	font-family: 'Open Sans', sans-serif;	
+}
+#login-title{
+	color: #650356;
+	opacity: 0.8;
+	text-shadow: 5px 5px 5px white;
+	font-family: 'Open Sans', sans-serif !important;	
+	font-size: 48px !important;
+	text-decoration: none;
+
+}
+body {
+  background-image: url(../img/concrete_seamless.png) !important;
+}
