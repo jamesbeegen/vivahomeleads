@@ -1,1 +1,1 @@
-web: gunicorn vivahomeloans.wsgi
+web: gunicorn vivahomeleads.wsgi
