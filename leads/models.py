@@ -32,3 +32,19 @@ class Lead(models.Model):
     def __str__(self):
         name = self.first_name + " " + self.last_name
         return name
+
+class QualTable(models.Model):
+    lead_id = models.OneToOneField(Lead, on_delete=models.CASCADE)
+    table_id = models.AutoField(primary_key=True)
+    loan_type = models.TextField(blank=True, null=True, default = 'FHA')
+    price = models.IntegerField(blank=True, null=True, default = 200000)
+    down_payment = models.FloatField(blank=True, null=True, default = 3.5)
+    rate = models.FloatField(blank=True, null=True, default = 4.00)
+    HOA_dues = models.FloatField(blank=True, null=True, default = 0)
+    monthly_payment = models.FloatField(blank=True, null=True)
+    term = models.IntegerField(blank=True, null=True, default = 360)
+
+@receiver(post_save, sender=Lead)
+def create_qual_table(sender, instance, created, **kwargs):
+    if created:
+        QualTable.objects.create(lead_id=instance)
