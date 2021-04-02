@@ -120,9 +120,10 @@ def edit(request, pk):
         form = EditLead(request.POST, instance=lead)
     if request.method == 'POST':
         if form.is_valid():
-            new_user = request.POST['user']
-            new_user = User.objects.get(username = new_user)
-            lead.user = new_user
+            if user.username == 'admin' or user.username == 'cgonzalez':
+                new_user = request.POST['user']
+                new_user = User.objects.get(username = new_user)
+                lead.user = new_user
             form.save()
             return redirect('leads')
     else:
