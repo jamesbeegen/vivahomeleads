@@ -9,8 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet"> 
   </head>
   <body>
-   <div class="position-sticky">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="viva-nav">
+    <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark bg-dark" id="viva-nav">
       <div class="container-fluid">
         <a class="navbar-brand" id="logo" href="{% url 'leads' %}">Viva Home Loans</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +33,6 @@
       </div>
       </div>
     </nav>
-   </div>
   <div class="container-fluid">
     <ol class="breadcrumb my-4">
       {% block breadcrumb %}
