@@ -4,7 +4,7 @@
 
 {% block content %}
   <a href="{% url 'add_lead' %}"><button class="btn btn-success mb-4">Add New Lead</button></a>
-  
+  <div class="table-responsive">
   <table id="leads" class="table table-hover">
     <thead>
       <tr>
@@ -54,7 +54,7 @@
       {% endfor %}
     </tbody>
   </table>
-</td>
+  </div>
 
  
 
