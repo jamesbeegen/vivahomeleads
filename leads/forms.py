@@ -3,9 +3,6 @@ from .models import Lead, QualTable
 from django.contrib.auth.models import User
 
 
-
-
-
 class UpdateLog(forms.ModelForm):
     logtext = forms.CharField(widget=forms.Textarea()),
 
@@ -13,6 +10,7 @@ class UpdateLog(forms.ModelForm):
         model = Lead
         fields = ['log']
 
+        
 class CreateLead(forms.ModelForm):
     first_name = forms.CharField(max_length=30, required=True)
     last_name = forms.CharField(max_length=30, required=True)
@@ -25,6 +23,7 @@ class CreateLead(forms.ModelForm):
         model = Lead
         fields = ['first_name', 'last_name', 'phone', 'email', 'credit', 'last_contacted', 'last_contact_method']
 
+        
 class EditLead(forms.ModelForm):
     first_name = forms.CharField(max_length=30, required=True)
     last_name = forms.CharField(max_length=30, required=True)
@@ -36,6 +35,8 @@ class EditLead(forms.ModelForm):
     class Meta:
         model = Lead
         fields = ['first_name', 'last_name', 'phone', 'email', 'credit', 'last_contacted', 'last_contact_method']
+        
+        
 class AdminEditLead(forms.ModelForm):
     user = forms.ChoiceField(choices = [(x, x) for x in User.objects.all()], required=True)
     first_name = forms.CharField(max_length=30, required=True)
@@ -49,6 +50,8 @@ class AdminEditLead(forms.ModelForm):
     class Meta:
         model = Lead
         fields = ['first_name', 'last_name', 'phone', 'email', 'credit', 'last_contacted', 'last_contact_method']
+        
+        
 LOAN_TYPES = [
     'FHA',
     'Conventional',
@@ -57,6 +60,7 @@ DOWNPAYMENTS = [
     3.0, 3.5, 5.0, 10.0, 15.0, 20.0
 ]
 TERMS = [360, 180]
+
 
 class QualForm(forms.ModelForm):
     loan_type = forms.ChoiceField(choices = [(x, x) for x in LOAN_TYPES], required=True)
@@ -72,12 +76,12 @@ class QualForm(forms.ModelForm):
     monthly_payment = forms.FloatField(required=False,
                                        help_text = 'Includes estimated Homeowners insurance and monthly taxes')
 
-
     class Meta:
         model = QualTable
         fields = ['loan_type','price', 'down_payment', 'rate',
                   'HOA_dues', 'term', 'monthly_payment']
 
+        
 class DeleteLead(forms.ModelForm):
     class Meta:
         model = Lead
