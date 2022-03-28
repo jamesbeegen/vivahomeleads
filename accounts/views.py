@@ -4,7 +4,7 @@ from django.contrib.auth import login
 from .forms import SignUpForm, ProfileForm
 from django.contrib.auth.models import User
 
-# Create your views here.
+# Signup Form
 def signup(request):
     if request.method == 'POST':
         signup_form = SignUpForm(request.POST)
@@ -13,10 +13,10 @@ def signup(request):
             user = signup_form.save()
             login(request, user)
             return redirect('leads')
-
     else:
         profile_form = ProfileForm()
         signup_form = SignUpForm()
+        
     return render(request, 'signup.html', {'signup_form': signup_form, 'profile_form': profile_form})
 
 
