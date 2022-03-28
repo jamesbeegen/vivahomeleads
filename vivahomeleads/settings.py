@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '6w3e6^73fx05r*_5!739k%dfi!afuo%rpk33)t-q$l&d@6jw1a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['vivahomeleads.herokuapp.com']
 
