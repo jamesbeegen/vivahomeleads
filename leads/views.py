@@ -10,13 +10,14 @@ from django.contrib.auth.forms import PasswordChangeForm
 from .models import Lead, QualTable
 
 
-
 admins = (
     'cgonzalez',
     'admin'
 )
+
 def home(request):
     return render(request, 'home.html')
+
 
 def leads(request):
     user = request.user
@@ -25,6 +26,7 @@ def leads(request):
     else:
         leads = Lead.objects.filter(user=user)
     return render(request, 'leads.html', {'leads': leads})
+
 
 def logs(request, pk):
     lead = get_object_or_404(Lead, pk=pk)
@@ -38,6 +40,7 @@ def logs(request, pk):
     else:
         return render(request, 'logs.html', {'lead': lead})
 
+    
 def qual_table(request, pk):
 
     lead = get_object_or_404(Lead, pk=pk)
@@ -79,6 +82,7 @@ def qual_table(request, pk):
             })
     return render(request, 'loan_calc.html', {'form': form})
 
+
 def get_payment(table):
     MIP_UPFRONT = .0175
     hoi = (table.price * .0002)
@@ -108,7 +112,6 @@ def get_payment(table):
     monthly += hoi + taxes + table.HOA_dues
     monthly = '{0:.2f}'.format(monthly)
     return monthly
-
 
 
 def edit(request, pk):
@@ -151,6 +154,7 @@ def edit(request, pk):
 
     return render(request, 'edit.html', {'form': form})
 
+
 def add_lead(request):
     user = request.user
     if request.method == 'POST':
@@ -164,6 +168,7 @@ def add_lead(request):
         form = CreateLead()
     return render(request, 'add_lead.html', {'form': form})
 
+
 def delete_lead(request, pk):
     lead = get_object_or_404(Lead, pk=pk)
     if request.method == 'POST':
@@ -175,6 +180,7 @@ def delete_lead(request, pk):
         form = DeleteLead()
         return render(request, 'delete.html', {'form': form})
 
+    
 @login_required
 def update_profile(request):
     if request.method == 'POST':
@@ -190,6 +196,7 @@ def update_profile(request):
     return render(request, 'profile.html', {
         'user_form': user_form,
         'profile_form': profile_form})
+
 
 def change_password(request):
     if request.method == 'POST':
