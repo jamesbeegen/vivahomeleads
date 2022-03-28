@@ -4,8 +4,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from datetime import date, datetime
 import random
-# Create your models here.
-
 
 
 class Lead(models.Model):
@@ -20,6 +18,7 @@ class Lead(models.Model):
     last_contact_method = models.CharField(max_length=30, unique=False, null=True)
     log = models.TextField(null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
     @property
     def days_since_contact(self):
         todays = str(date.today())
@@ -44,15 +43,16 @@ class QualTable(models.Model):
     monthly_payment = models.FloatField(blank=True, null=True)
     term = models.IntegerField(blank=True, null=True, default = 360)
 
+    
 @receiver(post_save, sender=Lead)
 def create_qual_table(sender, instance, created, **kwargs):
     if created:
         QualTable.objects.create(lead_id=instance)
 
+        
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=1)
     phone = models.CharField(max_length=10, blank=False, null=False)
-
 
 
 @receiver(post_save, sender=User)
@@ -62,6 +62,7 @@ def create_user_profile(sender, instance, created, **kwargs):
 
         instance.groups.add(Group.objects.get(name='Loan Officers'))
 
+        
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
