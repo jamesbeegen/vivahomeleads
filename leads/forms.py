@@ -19,6 +19,7 @@ class CreateLead(forms.ModelForm):
     credit = forms.CharField(max_length=3, required=True)
     last_contacted = forms.DateField(widget=forms.DateInput, help_text="mm/dd/yyyy")
     last_contact_method = forms.CharField(max_length=30, required=True)
+    
     class Meta:
         model = Lead
         fields = ['first_name', 'last_name', 'phone', 'email', 'credit', 'last_contacted', 'last_contact_method']
@@ -32,6 +33,7 @@ class EditLead(forms.ModelForm):
     credit = forms.CharField(max_length=3, required=True)
     last_contacted = forms.DateField(widget=forms.DateInput, help_text="mm/dd/yyyy")
     last_contact_method = forms.CharField(max_length=30, required=True)
+    
     class Meta:
         model = Lead
         fields = ['first_name', 'last_name', 'phone', 'email', 'credit', 'last_contacted', 'last_contact_method']
